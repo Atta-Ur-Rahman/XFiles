@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.attaurrahman.recordapplication.R;
 
 import java.io.File;
 import java.io.IOException;

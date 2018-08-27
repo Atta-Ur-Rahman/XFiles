@@ -14,12 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.attaurrahman.recordapplication.R;
 
 import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -111,6 +112,18 @@ public class RecordingViewFragment extends Fragment {
             adpter = new MyAdapter(list, getActivity(), inflater);
             rvRecordingFile.setAdapter(adpter);
             adpter.notifyDataSetChanged();
+
+
+
+            Collections.sort(list, new Comparator<FileHelper>() {
+                @Override
+                public int compare(FileHelper lhs, FileHelper rhs) {
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    String strCurrentDateandTime = sdf.format(new Date());
+                    return strCurrentDateandTime.compareTo(rhs.getStrRecordingTimeDate());
+                }
+            });
 
             if (aBooleanRecordingNotFound) {
                 tvRecordingFileNotFound.setVisibility(View.VISIBLE);

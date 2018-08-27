@@ -2,6 +2,7 @@ package com.xfiles.techease;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.media.MediaPlayer;
@@ -9,18 +10,14 @@ import android.media.audiofx.Visualizer;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.attaurrahman.recordapplication.R;
-
 import java.io.IOException;
 
 import ak.sh.ay.musicwave.MusicWave;
-import br.com.joinersa.oooalertdialog.Animation;
-import br.com.joinersa.oooalertdialog.OnClickListener;
-import br.com.joinersa.oooalertdialog.OoOAlertDialog;
 
 public class DialogUtils {
 
@@ -29,6 +26,7 @@ public class DialogUtils {
 
 
     public static MediaPlayer mediaPlayer;
+
     public static void MediaPlayerDialog(LayoutInflater inflater, final Context context, String string) {
 
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
@@ -41,7 +39,7 @@ public class DialogUtils {
 
         mediaPlayer = new MediaPlayer();
 
-        String strPath = "/storage/emulated/0/XFiles/"+string;
+        String strPath = "/storage/emulated/0/XFiles/" + string;
 
         try {
             mediaPlayer.setDataSource(strPath);
@@ -70,14 +68,13 @@ public class DialogUtils {
         });
 
 
-
-
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
+        doKeepDialog(dialog);
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (mediaPlayer!=null){
+                if (mediaPlayer != null) {
                     mediaPlayer.stop();
                     mVisualizer.setEnabled(false);
                 }
@@ -114,5 +111,12 @@ public class DialogUtils {
         mVisualizer.setEnabled(true);
     }
 
+    private static void doKeepDialog(Dialog dialog) {
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setAttributes(lp);
+    }
 
 }

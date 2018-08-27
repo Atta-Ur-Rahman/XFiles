@@ -14,7 +14,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.attaurrahman.recordapplication.R;
 
 import me.itangqi.waveloadingview.WaveLoadingView;
 
